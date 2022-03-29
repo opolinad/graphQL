@@ -21,6 +21,7 @@
   "homepage": "https://github.com/opolinad/graphQL#readme",
   "dependencies": {
     "apollo-server": "^3.6.6",
+    "apollo-server-core": "^3.6.6",
     "axios": "^0.26.1",
     "dataloader": "^2.0.0",
     "dotenv": "^16.0.0",

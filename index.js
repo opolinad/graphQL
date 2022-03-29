@@ -1,4 +1,5 @@
 import { ApolloServer, UserInputError, gql, AuthenticationError } from "apollo-server";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { dbConnect } from "./db.js";
 import { seedAutor } from "./Seeds/author.js"
 import { seedBook } from "./Seeds/book.js"
@@ -169,7 +170,11 @@ const server = new ApolloServer({
             const validUser = await userModel.findOne({ username: decodedToken._doc.username })
             return validUser;
         }
-    }
+    },
+    plugins:[
+        ApolloServerPluginLandingPageGraphQLPlayground()
+    ]
+
 });
 
 server.listen(process.env.PORT,()=>{
