@@ -132,8 +132,8 @@ const resolvers = {
             if (!context.username) throw new AuthenticationError("Debe loguear para crear un nuevo libro");
             const newBook = { ...args };
             bookModel.find({ title: args.title }, async (err, docs) => {
-                console.log("Entra");
-                if (!docs) {
+                console.log(docs);
+                if (!docs || !docs.length) {
                     await bookModel.create(newBook);
                 }
             })
@@ -144,6 +144,7 @@ const resolvers = {
             const book = await bookModel.find({ ISBN: args.ISBN });
             // if (!book.length) return null;
             bookModel.update({ ISBN: args.ISBN }, args);
+            console.log(book);
             return ({ ...(book[0]._doc), ...args });
         },
         createUser: async (root, args) => {
@@ -170,11 +171,10 @@ const server = new ApolloServer({
             const validUser = await userModel.findOne({ username: decodedToken._doc.username })
             return validUser;
         }
-    },
+    }/* ,
     plugins:[
         ApolloServerPluginLandingPageGraphQLPlayground()
-    ]
-
+    ] */
 });
 
 server.listen(process.env.PORT,()=>{
