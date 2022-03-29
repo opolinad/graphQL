@@ -8,7 +8,8 @@ import authorModel from "./Models/author.js";
 import publisherModel from "./Models/publisher.js";
 import userModel from "./Models/user.js"
 import jwt from "jsonwebtoken"
-import DataLoader from "dataloader";
+import dotenv from "dotenv"
+dotenv.config();
 const JWT_SECRET = "Maestrik"
 
 const typeDefs = gql`
@@ -171,10 +172,7 @@ const server = new ApolloServer({
     }
 });
 
-server.listen().then(async ({ url }) => {
-    await dbConnect();
-    // await seedAutor();
-    // await seedBook();
-    // await seedPublisher();
-    console.log(`Server ready at ${url}`);
-})
+server.listen(process.env.PORT,()=>{
+    dbConnect();
+    console.log("Server listening at port "+process.env.PORT);
+});
