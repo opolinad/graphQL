@@ -171,10 +171,10 @@ const server = new ApolloServer({
             const validUser = await userModel.findOne({ username: decodedToken._doc.username })
             return validUser;
         }
-    }/* ,
+    },
     plugins:[
         ApolloServerPluginLandingPageGraphQLPlayground()
-    ] */
+    ]
 });
 
 server.listen(process.env.PORT,()=>{
